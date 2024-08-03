@@ -1,6 +1,17 @@
 import fs from "fs";
 
-//console.log(pathto);
+
+class splitspace{
+    [Symbol.split](string){
+        let s1 = string.split(" ");
+        let s2 = [];
+        for(let x in s1){
+            x.split("\n");
+            s2 += x;
+        }
+        return s2;
+    }
+};
 
 const readfile = (location) => 
 new Promise((resolve, reject) => {
@@ -9,7 +20,7 @@ new Promise((resolve, reject) => {
             console.error(err);
             return reject(err);
         }else{
-            resolve(data.toString().split(' '));
+            resolve(data.toString());
         }
     });
 });
@@ -17,7 +28,8 @@ new Promise((resolve, reject) => {
 
 async function main(){
     const pathto = process.argv[2];
-    const program = await readfile(pathto);
+    console.log(pathto);
+    const program = await readfile(pathto.split(new splitspace));
     console.log(program);
 }
 
