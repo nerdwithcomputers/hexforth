@@ -34,32 +34,30 @@ async function main(){
     const program = p1.split(new splitspace);
     console.log(program);
 
-    const proglen = program.len;
+    // const proglen = program.len;
 
     const stack = [];
 
     for(let x of program){
-        if(x[0]=="."){
-            console.log(x.slice(2));
-            stack.push(x.slice(1));
-            continue;
-        }
         switch(x){
             case "+":{
-                stack[stack.len-1] = program[proglen] + program[proglen-1];
+                stack[stack.len-1] = stack[stack.len] + stack[stack.len-1];
                 stack.pop();
             }
             case "-":{
-                stack[stack.len-1] = program[proglen] - program[proglen-1];
+                stack[stack.len-1] = stack[stack.len] - stack[stack.len-1];
                 stack.pop();
             }
             case "*":{
-                stack[stack.len-1] = program[proglen] * program[proglen-1];
+                stack[stack.len-1] = stack[stack.len] * stack[stack.len-1];
                 stack.pop();
             }
             case "*":{
-                stack[stack.len-1] = program[proglen] / program[proglen-1];
+                stack[stack.len-1] = stack[stack.len] / stack[stack.len-1];
                 stack.pop();
+            }
+            default:{
+                stack.push(x);
             }
         }
     }
