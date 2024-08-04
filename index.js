@@ -4,10 +4,11 @@ import fs from "fs";
 class splitspace{
     [Symbol.split](string){
         let s1 = string.split(" ");
-        let s2 = [];
-        for(let x in s1){
-            x.split("\n");
-            s2 += x;
+        var s2 = [];
+        for(let x of s1){
+            let y = x.split("\n");
+            // console.log(y);
+            s2 = s2.concat(y);
         }
         return s2;
     }
@@ -29,8 +30,40 @@ new Promise((resolve, reject) => {
 async function main(){
     const pathto = process.argv[2];
     console.log(pathto);
-    const program = await readfile(pathto.split(new splitspace));
+    const p1 = await readfile(pathto);
+    const program = p1.split(new splitspace);
     console.log(program);
+
+    const proglen = program.len;
+
+    const stack = [];
+
+    for(let x of program){
+        if(x[0]=="."){
+            console.log(x.slice(2));
+            stack.push(x.slice(1));
+            continue;
+        }
+        switch(x){
+            case "+":{
+                stack[stack.len-1] = program[proglen] + program[proglen-1];
+                stack.pop();
+            }
+            case "-":{
+                stack[stack.len-1] = program[proglen] - program[proglen-1];
+                stack.pop();
+            }
+            case "*":{
+                stack[stack.len-1] = program[proglen] * program[proglen-1];
+                stack.pop();
+            }
+            case "*":{
+                stack[stack.len-1] = program[proglen] / program[proglen-1];
+                stack.pop();
+            }
+        }
+    }
+    console.log(stack);
 }
 
 main();

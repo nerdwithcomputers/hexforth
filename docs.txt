@@ -1,0 +1,12 @@
+.
+add the value directly succeeding it to the stack eg; .5 , ."foobar"
+
+
++ 
+simple, add the last two values on the stack
+
+-
+subtract the last value on the stack from the second to last
+
+*, /
+multiply/divide the last value on the stack by the second to last
