@@ -39,22 +39,27 @@ async function main(){
     const stack = [];
 
     for(let x of program){
+        console.log(x);
         switch(x){
-            case "+":{
-                stack[stack.len-1] = stack[stack.len] + stack[stack.len-1];
-                stack.pop();
-            }
-            case "-":{
-                stack[stack.len-1] = stack[stack.len] - stack[stack.len-1];
-                stack.pop();
-            }
-            case "*":{
-                stack[stack.len-1] = stack[stack.len] * stack[stack.len-1];
-                stack.pop();
-            }
-            case "*":{
-                stack[stack.len-1] = stack[stack.len] / stack[stack.len-1];
-                stack.pop();
+            // case "+":{
+            //     stack[stack.len-1] = stack[stack.len] + stack[stack.len-1];
+            //     // console.log(stack);
+            //     stack.pop();
+            // }
+            // case "-":{
+            //     stack[stack.len-1] = stack[stack.len] - stack[stack.len-1];
+            //     stack.pop();
+            // }
+            // case "*":{
+            //     stack[stack.len-1] = stack[stack.len] * stack[stack.len-1];
+            //     stack.pop();
+            // }
+            // case "*":{
+            //     stack[stack.len-1] = stack[stack.len] / stack[stack.len-1];
+            //     stack.pop();
+            // }
+            case "print":{
+                console.log(stack[stack.len]);
             }
             default:{
                 stack.push(x);
