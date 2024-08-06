@@ -21,7 +21,8 @@ new Promise((resolve, reject) => {
             console.error(err);
             return reject(err);
         }else{
-            resolve(data.toString());
+            resolve(data);
+            // console.log(data);
         }
     });
 });
@@ -29,44 +30,54 @@ new Promise((resolve, reject) => {
 
 async function main(){
     const pathto = process.argv[2];
-    console.log(pathto);
+    // console.log(pathto);
     const p1 = await readfile(pathto);
     const program = p1.split(new splitspace);
-    console.log(program);
+    // console.log(program);
 
     // const proglen = program.len;
 
     const stack = [];
 
     for(let x of program){
-        console.log(x);
+        // console.log(x);
         switch(x){
-            // case "+":{
-            //     stack[stack.len-1] = stack[stack.len] + stack[stack.len-1];
-            //     // console.log(stack);
-            //     stack.pop();
-            // }
-            // case "-":{
-            //     stack[stack.len-1] = stack[stack.len] - stack[stack.len-1];
-            //     stack.pop();
-            // }
-            // case "*":{
-            //     stack[stack.len-1] = stack[stack.len] * stack[stack.len-1];
-            //     stack.pop();
-            // }
-            // case "*":{
-            //     stack[stack.len-1] = stack[stack.len] / stack[stack.len-1];
-            //     stack.pop();
-            // }
+            case "+":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
+            }
+            case "-":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) - parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
+            }
+            case "*":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) * parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
+            }
+            case "/":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) / parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
+            }
             case "print":{
-                console.log(stack[stack.len]);
+                console.log(stack[stack.length-1]);
+                break;
+            }
+            case "%":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) % parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
             }
             default:{
                 stack.push(x);
+                // console.log(stack);
             }
         }
     }
-    console.log(stack);
+    // console.log(stack);
 }
 
 main();
