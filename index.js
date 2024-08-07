@@ -7,7 +7,7 @@ class splitspace{
         var str = [];
         var s2 = [];
         for(let x of s1){
-            var y;
+            var y = [];
             if(x.startsWith('"')){
                 // console.log(x.slice(1));
                 str.push(x.slice(1));
@@ -15,10 +15,10 @@ class splitspace{
             }else if(str.length>0 && !x.endsWith('"')){
                 str.push(x);
             }else if(x.endsWith('"')){
-                console.log(x.substring(0, x.length-1));
+                // console.log(x.substring(0, x.length-1));
                 str.push(x.substring(0, x.length-1));
                 // console.log(str);
-                y=str.join(" ");
+                y.push(str.join(" "));
                 // console.log(y);
                 str = [];
             }else{
@@ -80,17 +80,17 @@ async function main(){
                 stack.pop();
                 break;
             }
+            case "%":{
+                stack[stack.length-2] = parseInt(stack[stack.length-1]) % parseInt(stack[stack.length-2]);
+                stack.pop();
+                break;
+            }
             case "print":{
                 console.log(stack[stack.length-1]);
                 break;
             }
             case "printS":{
                 console.log(stack);
-                break;
-            }
-            case "%":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) % parseInt(stack[stack.length-2]);
-                stack.pop();
                 break;
             }
             default:{
