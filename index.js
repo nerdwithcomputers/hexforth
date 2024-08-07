@@ -4,11 +4,28 @@ import fs from "fs";
 class splitspace{
     [Symbol.split](string){
         let s1 = string.split(" ");
+        var str = [];
         var s2 = [];
         for(let x of s1){
-            let y = x.split("\n");
-            // console.log(y);
+            var y;
+            if(x.startsWith('"')){
+                // console.log(x.slice(1));
+                str.push(x.slice(1));
+                // console.log(str);
+            }else if(str.length>0 && !x.endsWith('"')){
+                str.push(x);
+            }else if(x.endsWith('"')){
+                console.log(x.substring(0, x.length-1));
+                str.push(x.substring(0, x.length-1));
+                // console.log(str);
+                y=str.join(" ");
+                // console.log(y);
+                str = [];
+            }else{
+                y = x.split("\n");
+            }
             s2 = s2.concat(y);
+            // console.log(s2);
         }
         return s2;
     }
@@ -42,6 +59,7 @@ async function main(){
     for(let x of program){
         // console.log(x);
         switch(x){
+            case "": break;
             case "+":{
                 stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
                 stack.pop();
@@ -64,6 +82,10 @@ async function main(){
             }
             case "print":{
                 console.log(stack[stack.length-1]);
+                break;
+            }
+            case "printS":{
+                console.log(stack);
                 break;
             }
             case "%":{
