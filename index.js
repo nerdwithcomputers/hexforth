@@ -6,7 +6,7 @@ class splitspace{
         let s2 = [];
         for(let x of s1){
             // console.log(x);
-            var y;
+            let y;
             y = x.split("\n");
             s2 = s2.concat(y);
             // console.log(s2);
@@ -69,11 +69,11 @@ async function main(){
                 stack.pop();
                 break;
             }
-            case "pop":{
+            case "exile":{
                 stack.pop();
                 break;
             }
-            case "dup":{
+            case "simulacrum":{
                 stack.push(stack[stack.length-1]);
                 break;
             }
