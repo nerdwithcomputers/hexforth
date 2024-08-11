@@ -36,73 +36,92 @@ async function main(){
     const program = p1.split(new splitspace);
     // console.log(program);
 
-    const stack = [];
+    let stack = [];
     let str = [];
-    let strstat;
+    let funcs = new Map();
+    let inProgFunc = [];
+    let funcIndex;
+    let strStat, funcStat;
+    // let i = 0;
 
     for(let x of program){
-        // console.log(x);
-        switch(x){
-            case "": break;
-            case "+":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
-                stack.pop();
-                break;
-            }
-            case "-":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) - parseInt(stack[stack.length-2]);
-                stack.pop();
-                break;
-            }
-            case "*":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) * parseInt(stack[stack.length-2]);
-                stack.pop();
-                break;
-            }
-            case "/":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) / parseInt(stack[stack.length-2]);
-                stack.pop();
-                break;
-            }
-            case "%":{
-                stack[stack.length-2] = parseInt(stack[stack.length-1]) % parseInt(stack[stack.length-2]);
-                stack.pop();
-                break;
-            }
-            case "exile":{
-                stack.pop();
-                break;
-            }
-            case "simulacrum":{
-                stack.push(stack[stack.length-1]);
-                break;
-            }
-            case "print":{
-                console.log(stack[stack.length-1]);
-                break;
-            }
-            case "printS":{
-                console.log(stack);
-                break;
-            }
-            default:{
-                // before you start, i didn't want switchception
-                if(x.startsWith('"')){
-                    str.push(x.slice(1));
-                    strstat = true;
-                }else if(strstat && x.endsWith('"')){
-                    strstat = false;
-                    str.push(x.slice(0,-1));
-                    stack.push(str.join(" "));
-                    str = [];
-                }else if(strstat){
-                    console.log(x);
-                    str.push(x);
-                }else{
-                    stack.push(x);
+        if(funcStat && x!="cut"){
+            inProgFunc.push(x);
+        }else if(funcStat && x=="cut"){
+            funcs.set(inProgFunc[0], )
+        }else{
+            switch(x){
+                case "": break;
+                case "scribe":{
+                    funcStat = true;
+                    funcIndex = i;
+                    break;
+                }
+                case "cut":{
+                    funcStat = false;
+                }
+                case "+":{
+                    stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
+                    stack.pop();
+                    break;
+                }
+                case "-":{
+                    stack[stack.length-2] = parseInt(stack[stack.length-1]) - parseInt(stack[stack.length-2]);
+                    stack.pop();
+                    break;
+                }
+                case "*":{
+                    stack[stack.length-2] = parseInt(stack[stack.length-1]) * parseInt(stack[stack.length-2]);
+                    stack.pop();
+                    break;
+                }
+                case "/":{
+                    stack[stack.length-2] = parseInt(stack[stack.length-1]) / parseInt(stack[stack.length-2]);
+                    stack.pop();
+                    break;
+                }
+                case "%":{
+                    stack[stack.length-2] = parseInt(stack[stack.length-1]) % parseInt(stack[stack.length-2]);
+                    stack.pop();
+                    break;
+                }
+                case "exile":{
+                    stack.pop();
+                    break;
+                }
+                case "simulacrum":{
+                    stack.push(stack[stack.length-1]);
+                    break;
+                }
+                case "print":{
+                    console.log(stack[stack.length-1]);
+                    break;
+                }
+                case "printS":{
+                    console.log(stack);
+                    break;
+                }
+                default:{
+                    // before you start, i didn't want switchception
+                    if(x.startsWith('"')){
+                        str.push(x.slice(1));
+                        strStat = true;
+                    }else if(strStat && x.endsWith('"')){
+                        strStat = false;
+                        str.push(x.slice(0,-1));
+                        stack.push(str.join(" "));
+                        str = [];
+                    }else if(strStat){
+                        console.log(x);
+                        str.push(x);
+                    }else{
+                        stack.push(x);
+                    }
+                    break;
                 }
             }
         }
+        // i++;
     }
     // console.log(stack);
 }
