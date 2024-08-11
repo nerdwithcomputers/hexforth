@@ -1,7 +1,5 @@
 import fs from "fs";
 
-// var str = [];
-
 class splitspace{
     [Symbol.split](string){
         let s1 = string.split(" ");
@@ -38,9 +36,9 @@ async function main(){
     const program = p1.split(new splitspace);
     // console.log(program);
 
-    // const proglen = program.len;
-
     const stack = [];
+    let str = [];
+    let strstat;
 
     for(let x of program){
         // console.log(x);
@@ -75,6 +73,10 @@ async function main(){
                 stack.pop();
                 break;
             }
+            case "dup":{
+                stack.push(stack[stack.length-1]);
+                break;
+            }
             case "print":{
                 console.log(stack[stack.length-1]);
                 break;
@@ -84,8 +86,21 @@ async function main(){
                 break;
             }
             default:{
-                stack.push(x);
-                // console.log(stack);
+                // before you start, i didn't want switchception
+                if(x.startsWith('"')){
+                    str.push(x.slice(1));
+                    strstat = true;
+                }else if(strstat && x.endsWith('"')){
+                    strstat = false;
+                    str.push(x.slice(0,-1));
+                    stack.push(str.join(" "));
+                    str = [];
+                }else if(strstat){
+                    console.log(x);
+                    str.push(x);
+                }else{
+                    stack.push(x);
+                }
             }
         }
     }

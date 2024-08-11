@@ -1,3 +1,2 @@
-2 3 4 * * print pop
-2 12 * print pop
-"hello there" printS
+"hello world!" 
+print
