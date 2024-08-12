@@ -126,16 +126,16 @@ async function main(){
     // console.log(program);
 
     for(let x of program){
-        // if(funcStat && x!="cut"){
-        //     inProgFunc.push(x);
-        //     console.log(inProgFunc)
-        // }else if(funcStat && x=="cut"){
-        //     let funcName = inProgFunc[0];
-        //     inProgFunc.shift();
-        //     funcs.set(funcName, inProgFunc);
-        // }else{
+        if(funcStat && x!="cut"){
+            inProgFunc.push(x);
+            console.log(inProgFunc)
+        }else if(funcStat && x=="cut"){
+            let funcName = inProgFunc[0];
+            inProgFunc.shift();
+            funcs.set(funcName, inProgFunc);
+        }else{
             exec(x);
-        // }
+        }
         
     }
 }
