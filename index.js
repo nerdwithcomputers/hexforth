@@ -43,11 +43,6 @@ function exec(x){
             funcStat = true;
             break;
         }
-        case "cut":{
-            funcStat = false;
-            console.log
-            break;
-        }
         case "+":{
             stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
             stack.pop();
@@ -90,7 +85,8 @@ function exec(x){
             break;
         }
         default:{
-            console.log(funcs);
+            // console.log(funcs);
+            // console.log(stack);
             // before you start, i didn't want switchception
             if(x.startsWith('"')){
                 str.push(x.slice(1));
@@ -101,15 +97,18 @@ function exec(x){
                 stack.push(str.join(" "));
                 str = [];
             }else if(strStat){
-                // console.log(x);
                 str.push(x);
             }else{
-                try{
-                    funcs.get(x);
-                    for(j in funcs.get(x)){
-                        exec(j);
-                    };
-                }catch(error){
+                // console.log(funcs);
+                if(parseInt(x) == NaN){
+                    for(j of funcs.get(x)){
+                        if(j!="cut"){
+                            exec(j);
+                        }else{
+                            break;
+                        }
+                    }
+                }else{
                     stack.push(x);
                 }
             }
@@ -128,8 +127,9 @@ async function main(){
     for(let x of program){
         if(funcStat && x!="cut"){
             inProgFunc.push(x);
-            console.log(inProgFunc)
+            // console.log(inProgFunc);
         }else if(funcStat && x=="cut"){
+            funcStat = false;
             let funcName = inProgFunc[0];
             inProgFunc.shift();
             funcs.set(funcName, inProgFunc);

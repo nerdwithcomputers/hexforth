@@ -1,2 +1,8 @@
-8 8 *
-printS
+scribe hello
+"hello there" print
+cut
+
+hello
+
+1 1 +
+print
