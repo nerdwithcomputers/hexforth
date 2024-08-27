@@ -12,12 +12,10 @@ class splitspace{
     [Symbol.split](string){
         let s1 = string.split(" ");
         let s2 = [];
-        for(let x of s1){
-            // console.log(x);
+        for(let x of s1){            
             let y;
             y = x.split("\n");
             s2 = s2.concat(y);
-            // console.log(s2);
         }
         return s2;
     }
@@ -30,17 +28,21 @@ new Promise((resolve, reject) => {
             console.error(err);
             return reject(err);
         }else{
-            resolve(data);
-            // console.log(data);
+            resolve(data);            
         }
     });
 });
 
 function exec(x){
+    // console.log(x);
     switch(x){
         case "": break;
-        case "scribe":{
-            funcStat = true;
+        case "scribe{":{
+            
+            break;
+        }
+        case "": {
+
             break;
         }
         case "+":{
@@ -99,14 +101,9 @@ function exec(x){
             }else if(strStat){
                 str.push(x);
             }else{
-                // console.log(funcs);
-                if(parseInt(x) == NaN){
-                    for(j of funcs.get(x)){
-                        if(j!="cut"){
-                            exec(j);
-                        }else{
-                            break;
-                        }
+                if(x.startsWith('(')){
+                    for(let j in funcs.get(x)){
+                        exec(j)
                     }
                 }else{
                     stack.push(x);
@@ -125,18 +122,7 @@ async function main(){
     // console.log(program);
 
     for(let x of program){
-        if(funcStat && x!="cut"){
-            inProgFunc.push(x);
-            // console.log(inProgFunc);
-        }else if(funcStat && x=="cut"){
-            funcStat = false;
-            let funcName = inProgFunc[0];
-            inProgFunc.shift();
-            funcs.set(funcName, inProgFunc);
-        }else{
-            exec(x);
-        }
-        
+        exec(x);
     }
 }
 

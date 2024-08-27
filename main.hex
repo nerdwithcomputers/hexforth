@@ -1,8 +1,9 @@
-scribe hello
-"hello there" print
-cut
+scribe{
+(hello)
+"hello there"
+}
 
-hello
+(hello)
 
 1 1 +
-print
+printS
