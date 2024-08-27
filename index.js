@@ -4,7 +4,7 @@ var stack = [];
 var str = [];
 var strStat;
 let funcs = new Map();
-var inProgFunc = [];
+var inProgFunc;
 // var funcIndex;
 var funcStat = false;
 
@@ -37,14 +37,6 @@ function exec(x){
     // console.log(x);
     switch(x){
         case "": break;
-        case "scribe{":{
-            
-            break;
-        }
-        case "": {
-
-            break;
-        }
         case "+":{
             stack[stack.length-2] = parseInt(stack[stack.length-1]) + parseInt(stack[stack.length-2]);
             stack.pop();
@@ -100,6 +92,10 @@ function exec(x){
                 str = [];
             }else if(strStat){
                 str.push(x);
+            }else if(x == "scribe{"){
+                funcStat = true;
+            }else if(funcStat && x.startsWith("(")){
+                funcs.set(x, []);
             }else{
                 if(x.startsWith('(')){
                     for(let j in funcs.get(x)){
