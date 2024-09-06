@@ -3,10 +3,11 @@ import fs from "fs";
 var stack = [];
 var str = [];
 var strStat;
+
 let funcs = new Map();
 var inProgFunc;
-// var funcIndex;
 var funcStat = false;
+// var funcIndex;
 
 class splitspace{
     [Symbol.split](string){
@@ -83,31 +84,52 @@ function exec(x){
             // console.log(stack);
             // before you start, i didn't want switchception
             if(x.startsWith('"')){
+                // start a string
                 str.push(x.slice(1));
                 strStat = true;
-            }else if(strStat && x.endsWith('"')){
-                strStat = false;
-                str.push(x.slice(0,-1));
-                stack.push(str.join(" "));
-                str = [];
-            }else if(strStat){
-                str.push(x);
-            }else if(x == "scribe{"){
+            }else if(x.startsWith('scribe')){
+                // start scribing a function (or var, pretty much the same here)
                 funcStat = true;
-            }else if(funcStat && x.startsWith("(")){
-                funcs.set(x, []);
-            }else{
-                if(x.startsWith('(')){
-                    for(let j in funcs.get(x)){
-                        exec(j)
-                    }
-                }else{
-                    stack.push(x);
+                funcs.set(x.substring(7,x.length-2), []);
+                inProgFunc = x.substring(7,x.length-2);
+            }else if(x.startsWith('(')){
+                // call a function
+                let func = funcs.get(x.substring(1, x.length-1));
+                for(let i of func){
+                    mainLoop(i);
                 }
+            }else{
+                stack.push(x);
             }
             break;
         }
     }
+}
+
+function mainLoop(main){
+
+    for(let x of main){
+        if(!strStat && !funcStat){
+            exec(x);
+            console.log(funcs);
+        } else if (strStat){
+            if(!x.endsWith('"')){
+                str.push(x.trim());
+            }else{
+                str.push(x.substring(0,x.length-1));
+                strStat = false;
+                stack.push(str.join(' '));
+                str = [];
+            }
+        } else if (funcStat){
+            if(x!='}'){
+                funcs.get(inProgFunc).push(x);
+            }else{
+                funcStat = false;
+            }
+        }
+    }
+
 }
 
 async function main(){
@@ -117,9 +139,7 @@ async function main(){
     const program = p1.split(new splitspace);
     // console.log(program);
 
-    for(let x of program){
-        exec(x);
-    }
+    mainLoop(program);
 }
 
 main();

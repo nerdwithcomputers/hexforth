@@ -1,9 +1,7 @@
-scribe{
-(hello)
-"hello there"
+scribe(hello){
+    "hi there"
+    print
 }
 
 (hello)
-
-1 1 +
 printS
