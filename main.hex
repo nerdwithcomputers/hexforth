@@ -1,7 +1,6 @@
-scribe(hello){
-    "hi there"
-    print
+scribe(hex){
+    "hello there"
+    : 1 1 +
 }
-
-(hello)
+(hex)
 printS
