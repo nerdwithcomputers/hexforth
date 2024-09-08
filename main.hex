@@ -1,6 +1,0 @@
-scribe(hex){
-    "hello there"
-    : 1 1 +
-}
-(hex)
-printS

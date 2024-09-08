@@ -1,0 +1,12 @@
+
+// declare a function with scribe(hello){}
+//                                ^^^^^da name
+//the name of the function is the text in the parentheses
+
+scribe(hex){
+    "ello ello"
+    print
+}
+// then, call it by using the function name in parentheses
+// obviously, you don't have to declare arguments, since tis a stack-based lang
+(hex)

@@ -1,11 +1,11 @@
 import fs from "fs";
 
+// LE STACK
 var stack = [];
 
 let funcs = new Map();
 var inProgFunc;
 var funcStat = false;
-// var funcIndex;
 
 
 const readfile = (location) => 
@@ -53,7 +53,7 @@ function exec(x){
             stack.pop();
             break;
         }
-        case "simulacrum":{
+        case "twice":{
             stack.push(stack[stack.length-1]);
             break;
         }
@@ -74,16 +74,18 @@ function exec(x){
             }else if(x.startsWith('(')){
                 // call a function
                 let func = funcs.get(x.substring(1, x.length-1));
-                // console.log(func);
                 for(let i of func){
                     exec(i);
                 }
             }else if(x.startsWith('"') && x.endsWith('"')){
                 stack.push(x.substring(1,x.length-1));
             }else if(x.startsWith(':')){
+                // compose a line
                 let compline = x.split(' ');
                 compline.shift();
                 for(let i of compline) exec(i);
+            }else if(x.startsWith('//')){
+                break;
             }else{
                 stack.push(x);
             }

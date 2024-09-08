@@ -1,0 +1,8 @@
+6
+*
+7
+print
+
+// you can use : to compose multiple statements onto one line, which helps math look not like absolute crud(see above)
+// also strings don't like it yet, i'm working on it
+: 6 * 7 print
