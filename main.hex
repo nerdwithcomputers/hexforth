@@ -1,0 +1,7 @@
+scribe(square){ 
+    : 12 twice *
+}
+
+(square)
+
+printS

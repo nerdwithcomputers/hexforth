@@ -86,6 +86,24 @@ function exec(x){
                 for(let i of compline) exec(i);
             }else if(x.startsWith('//')){
                 break;
+            }else if(x.startsWith('if(')){
+                let tests = x.split(' ');
+                // get rid of delimiters
+                tests.shift();
+                tests.pop();
+
+                var results = 0;
+                for(let test of tests){
+                    test = test.split('');
+                    switch(test[0]){
+                        case '<':{                            
+                            test.shift();
+                            test = test.join('');
+                            if(test > stack[stack.length-1]) results++;
+                            break;
+                        }
+                    }
+                }
             }else{
                 stack.push(x);
             }
